@@ -38,6 +38,7 @@ class ExportFormat(str, Enum):
     bigquery = "bigquery"
     dbml = "dbml"
     spark = "spark"
+    odps = "odps"
     sqlalchemy = "sqlalchemy"
     data_caterer = "data-caterer"
     dcs = "dcs"

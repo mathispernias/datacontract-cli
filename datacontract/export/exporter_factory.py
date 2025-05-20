@@ -96,6 +96,12 @@ exporter_factory.register_lazy_exporter(
 )
 
 exporter_factory.register_lazy_exporter(
+    name=ExportFormat.odps,
+    module_path="datacontract.export.odps_converter",
+    class_name="OdpsExporter",
+)
+
+exporter_factory.register_lazy_exporter(
     name=ExportFormat.dbt_staging_sql,
     module_path="datacontract.export.dbt_converter",
     class_name="DbtStageExporter",

@@ -17,17 +17,15 @@ product:
       categories: []
       metadata:
         schemas:
-        - name: test
-          description: Generated from JSON array in .\test.jsonl
+        - name: FootballSchema
+          description: Schema for football team and person details, where team is
+            nested under the person
           fields:
-          - name: name
+          - name: person
             description: null
-            type: string
-          - name: wins
-            description: null
-            type: array
+            type: object
   dataHolder:
     description: null
   dataAccess:
-    type: local
-    format: json
+    type: API
+    format: JSON

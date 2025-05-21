@@ -1,74 +1,33 @@
-version: '3.1'
-schema: source/schema/odps.yaml
+version: '3.0'
+schema: https://opendataproducts.org/dev/schema/odps.yaml
 product:
-  en:
-    name: Orders Latest
-    description: 'Successful customer orders in the webshop.
-
-      All orders since 2020-01-01.
-
-      Orders with their line items are in their current state (no history included).
-
-      '
-    version: 2.0.0
-    tags: []
-    categories: []
-    status: active
-    visibility: public
+  contract:
+    id: my-data-contract-id
+    type: DCS
+    contractVersion: 1.1.0
+    spec: {}
+  details:
+    en:
+      name: My Data Contract
+      description: ''
+      productVersion: 0.0.1
+      status: null
+      visibility: public
+      tags: []
+      categories: []
+      metadata:
+        schemas:
+        - name: test
+          description: Generated from JSON array in .\test.jsonl
+          fields:
+          - name: name
+            description: null
+            type: string
+          - name: wins
+            description: null
+            type: array
   dataHolder:
-    description: John Doe (Data Product Owner)
-  support:
-    email: ''
-    documentationURL: https://teams.microsoft.com/l/channel/example/checkout
+    description: null
   dataAccess:
-    type: API
-    format: JSON
-details:
-  summary: ''
-  description: 'Successful customer orders in the webshop.
-
-    All orders since 2020-01-01.
-
-    Orders with their line items are in their current state (no history included).
-
-    '
-  language: en
-  metadata:
-    schemas:
-    - name: orders
-      description: One record per order. Includes cancelled and deleted orders.
-      fields:
-      - name: order_id
-        description: An internal ID that identifies an order in the online shop.
-        type: text
-        format: uuid
-      - name: order_timestamp
-        description: The business timestamp in UTC when the order was successfully
-          registered in the source system and the payment was successful.
-        type: timestamp
-      - name: order_total
-        description: Total amount the smallest monetary unit (e.g., cents).
-        type: long
-      - name: customer_id
-        description: Unique identifier for the customer.
-        type: text
-      - name: customer_email_address
-        description: The email address, as entered by the customer.
-        type: text
-        format: email
-      - name: processed_timestamp
-        description: The timestamp when the record was processed by the data platform.
-        type: timestamp
-    - name: line_items
-      description: A single article that is part of an order.
-      fields:
-      - name: line_item_id
-        description: Primary key of the lines_item_id table
-        type: text
-      - name: order_id
-        description: An internal ID that identifies an order in the online shop.
-        type: text
-        format: uuid
-      - name: sku
-        description: The purchased article number
-        type: text
+    type: local
+    format: json

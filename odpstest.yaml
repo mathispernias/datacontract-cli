@@ -1,0 +1,46 @@
+$schema: https://opendataproducts.org/v3.0/schema/odps.yaml
+version: '3.0'
+product:
+  details:
+    en:
+      name: ''
+      productID: 53581432-6c55-4ba2-a65f-72344a91553a
+      visibility: null
+      type: 1.1.0
+      version: 1.1.0
+      tags:
+      - transactions
+  dataAccess:
+    type: postgres
+    format: null
+    specification: null
+    documentationURL: null
+    authenticationMethod: null
+  SLA:
+  - dimension: availability
+    displaytitle:
+    - en: availability
+    monitoring: {}
+    objective: null
+    unit: ''
+  - dimension: retention
+    displaytitle:
+    - en: retention
+    monitoring: {}
+    objective: 3y
+    unit: ''
+  metadata:
+    schemas:
+    - name: tbl_1
+      description: Provides core payment metrics
+      fields:
+      - name: transaction_reference_date
+        type: date
+        description: Reference date for transaction
+      - name: rcvr_id
+        type: string
+        description: A description for column rcvr_id.
+      - name: rcvr_cntry_code
+        type: string
+        description: Country code
+    definitions: []

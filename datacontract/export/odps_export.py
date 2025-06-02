@@ -1,18 +1,22 @@
 import logging
 import yaml
-from typing import Dict, Any
+from typing import Dict, Any, Optional
+from datacontract.model.data_contract_specification import Quality
 
 from datacontract.export.exporter import Exporter
 from datacontract.model.data_contract_specification import DataContractSpecification
 
+# URL of the ODPS YAML Schema for v3.0
+ODPS_SCHEMA = "https://opendataproducts.org/v3.0/schema/odps.yaml"
+ODPS_VERSION = "3.0"
 
 class OdpsExporter(Exporter):
     """Exporter for Open Data Product Specification (ODPS) format."""
-    
+
     def export(self, data_contract, model, server, sql_server_type, export_args) -> str:
         """
         Export the data contract as ODPS format in YAML.
-        
+
         Returns:
             A YAML string representation of the ODPS format
         """
@@ -20,148 +24,140 @@ class OdpsExporter(Exporter):
         return yaml.dump(odps_dict, sort_keys=False, default_flow_style=False)
     
     
-# class DataContractSpecification(pyd.BaseModel):
-#     dataContractSpecification: str | None = None
-#     id: str | None = None
-#     info: Info | None = None
-#     servers: Dict[str, Server] = {}
-#     terms: Terms | None = None
-#     models: Dict[str, Model] = {}
-#     definitions: Dict[str, Definition] = {}
-#     examples: List[Example] = pyd.Field(
-#         default_factory=list,
-#         deprecated="Removed in Data Contract Specification " "v1.1.0. Use models.examples instead.",
-#     )
-#     quality: DeprecatedQuality | None = pyd.Field(
-#         default=None,
-#         deprecated="Removed in Data Contract Specification v1.1.0. Use " "model-level and field-level quality instead.",
-#     )
-#     servicelevels: ServiceLevel | None = None
-#     links: Dict[str, str] = {}
-#     tags: List[str] = []
+def get_sla_dimension(name: str, value: Any, unit: Optional[str] = None) -> Dict[str, Any]:
+    return {
+        "dimension": name,
+        "displaytitle": [{"en": name.replace("_", " ").capitalize()}],
+        "objective": value,
+        "unit": unit
+    }
 
-#     def to_yaml(self) -> str:
-#         return yaml.dump(
-#             self.model_dump(exclude_defaults=True, exclude_none=True,
-#                             by_alias=True),
-#             sort_keys=False,
-#             allow_unicode=True,
-#         )
-
-#     @classmethod
-#     def from_file(cls, file_path: str) -> "DataContractSpecification":
-#         if not os.path.exists(file_path):
-#             raise FileNotFoundError(f"The file '{file_path}' does not exist.")
-#         with open(file_path, "r", encoding="utf-8") as file:
-#             file_content = file.read()
-#         return cls.from_string(file_content)
-
-#     @classmethod
-#     def from_string(cls, data_contract_str: str) -> "DataContractSpecification":
-#         data = yaml.safe_load(data_contract_str)
-#         return cls(**data)
-
-#     @classmethod
-#     def json_schema(cls):
-#         package_name = __package__
-#         json_schema = "schema.json"
-#         with impresources.open_text(package_name,
-#                                     json_schema) as file:
-#             return file.read()
-
-
-import yaml
-from datacontract.model.data_contract_specification import DataContractSpecification
-
-# URL of the ODPS YAML Schema for v3.0
-ODPS_SCHEMA = "https://opendataproducts.org/v3.0/schema/odps.yaml"
-ODPS_VERSION = "3.0"
+def get_quality_dimension(model_name: str, field_name: str, q: Quality) -> Dict[str, Any]:
+    dimension = q.type or "custom"
+    return {
+        "dimension": dimension,
+        "displaytitle": [{"en": f"{dimension.capitalize()} ({model_name}.{field_name})"}],
+        "description": [{"en": q.description}] if q.description else [],
+        "objective": q.mustBe or q.mustBeGreaterThan or q.mustBeGreaterThanOrEqualTo or None,
+        "unit": "number" if any([q.mustBe, q.mustBeGreaterThan, q.mustBeGreaterThanOrEqualTo]) else None,
+    }
 
 def convert_odcs_to_odps(spec: DataContractSpecification) -> Dict[str, Any]:
-    """
-    Map a DataContractSpecification instance to an ODPS v3.1 document and return as dict.
-    """
-    odps: Dict[str, Any] = {
-        "$schema": ODPS_SCHEMA,
+    sla_declarative = []
+
+    if hasattr(spec, "servicelevels") and spec.servicelevels:
+        sl = spec.servicelevels
+        if sl.availability:
+            sla_declarative.append(get_sla_dimension("Availability", sl.availability.percentage, "percent"))
+        if sl.retention:
+            sla_declarative.append(get_sla_dimension("Retention", sl.retention.period, "period"))
+        if sl.latency:
+            sla_declarative.append(get_sla_dimension("Latency", sl.latency.threshold, "duration"))
+        if sl.freshness:
+            sla_declarative.append(get_sla_dimension("Freshness", sl.freshness.threshold, "duration"))
+        if sl.frequency:
+            sla_declarative.append(get_sla_dimension("Frequency", sl.frequency.interval, "interval"))
+        if sl.support:
+            sla_declarative.append(get_sla_dimension("Support", sl.support.responseTime, "duration"))
+        if sl.backup:
+            sla_declarative.append(get_sla_dimension("Backup", sl.backup.recoveryTime, "duration"))
+
+    dq_declarative = []
+    for model_name, model in spec.models.items():
+        if model.quality:
+            for q in model.quality:
+                dq_declarative.append(get_quality_dimension(model_name, "*", q))
+        for field_name, field in model.fields.items():
+            if field.quality:
+                for q in field.quality:
+                    dq_declarative.append(get_quality_dimension(model_name, field_name, q))
+
+    return {
+        "schema": ODPS_SCHEMA,
         "version": ODPS_VERSION,
-        "product": {},
-    }
-
-    # product details per ODPS v3.0
-    info = spec.info or None
-    details_en = {
-        "name": getattr(info, "title", None),
-        "productID": spec.id,
-        "visibility": getattr(info, "status", None),
-        "type": spec.dataContractSpecification,
-        **({"version": info.version} if info and info.version else {}),
-        **({"tags": spec.tags} if spec.tags else {}),
-    }
-    odps["product"]["details"] = {"en": details_en}
-
-    # optional top-level links
-    if spec.links:
-        odps["product"]["links"] = spec.links
-
-    # dataOps from first terms policy
-    policies = getattr(spec.terms, "policies", None)
-    if policies:
-        first = policies[0]
-        odps["product"]["dataOps"] = {
-            "build": {"deploymentDocumentationURL": getattr(first, "url", None)}
+        "product": {
+            "contract": {
+                "id": spec.id,
+                "type": "ODCS",
+                "contractVersion": spec.dataContractSpecification,
+                "spec": spec.model_dump(exclude_none=True, by_alias=True),
+            },
+            "details": {
+                "en": {
+                    "name": spec.info.title if spec.info else None,
+                    "productID": spec.id,
+                    "valueProposition": getattr(spec.terms, "usage", None),
+                    "description": getattr(spec.info, "description", None) if spec.info else None,
+                    "visibility": "private",
+                    "status": getattr(spec.info, "status", None) if spec.info else None,
+                    "productVersion": getattr(spec.info, "version", None) if spec.info else None,
+                    "tags": getattr(spec, "tags", []),
+                    "type": getattr(spec, "dataContractSpecification", None),
+                    "metadata": {
+                        "team": {
+                            "owner": getattr(spec.info, "owner", None)
+                        }
+                    }
+                }
+            },
+            "SLA": {
+                "declarative": sla_declarative
+            },
+            "support": {
+                "email": getattr(spec.info.contact, "email", None) if spec.info and spec.info.contact else None,
+                "documentationURL": None
+            },
+            "pricingPlans": {
+                "en": [
+                    {  #   price:
+  # priceAmount: 9.95
+  # priceCurrency: USD
+  # priceUnit: megabyte
+                        "name": "Default Plan",
+                        "priceCurrency": (spec.terms.billing.split()[1] if spec.terms and spec.terms.billing else None),
+                        "price": (spec.terms.billing.split()[0] if spec.terms and spec.terms.billing else None),
+                        "billingDuration": "month",
+                        "unit": (spec.terms.billing.split()[2] if spec.terms and spec.terms.billing else None),
+                        "maxTransactionQuantity": "unlimited",
+                        "offering": []
+                    }
+                ]
+            },
+            "dataQuality": {
+                "declarative": dq_declarative
+            },
+            "license": {
+                "en": {
+                    "scope": {
+                        "definition": getattr(spec.terms, "usage", None),
+                        "restrictions": getattr(spec.terms, "limitations", None),
+                        "geographicalArea": [],
+                        "permanent": None,
+                        "exclusive": None,
+                        "rights": []
+                    },
+                    "termination": {
+                        "terminationConditions": None,
+                        "continuityConditions": getattr(spec.terms, "noticePeriod", None)
+                    },
+                    "governance": {
+                        "ownership": getattr(spec.info, "owner", None) if spec.info else None,
+                        "damages": None,
+                        "confidentiality": None,
+                        "applicableLaws": None,
+                        "warranties": None,
+                        "audit": None,
+                        "forceMajeure": None
+                    }
+                }
+            },
+            "dataHolder": {
+                "en": {
+                    "description": getattr(spec.info, "owner", None),
+                    "URL": getattr(spec.info.contact, "url", None) if spec.info and spec.info.contact else None,
+                    "telephone": None,
+                    "addressCountry": None
+                }
+            }
         }
-
-    # dataAccess from first server
-    if spec.servers:
-        srv = next(iter(spec.servers.values()))
-        odps["product"]["dataAccess"] = {
-            "type": srv.type,
-            "format": srv.format,
-            "specification": srv.location,
-            "documentationURL": srv.description,
-            "authenticationMethod": None,
-        }
-
-    # SLA array from servicelevels
-    if spec.servicelevels:
-        sla = []
-        svc = spec.servicelevels.model_dump(exclude_none=True)
-        for dim, params in svc.items():
-            if params:
-                objective = params.get("threshold") or params.get("percentage") or params.get("period")
-                sla.append({
-                    "dimension": dim,
-                    "displaytitle": [{"en": dim}],
-                    "monitoring": {},
-                    "objective": objective,
-                    "unit": params.get("unit", ""),
-                })
-        if sla:
-            odps["product"]["SLA"] = sla
-
-    # metadata: schemas and definitions
-    metadata = {"schemas": [], "definitions": []}
-    for name, m in spec.models.items():
-        fld = []
-        for k, f in m.fields.items():
-            fld.append({
-                "name": k,
-                "type": f.type,
-                "description": f.description,
-            })
-        metadata["schemas"].append({
-            "name": name,
-            "description": m.description,
-            "fields": fld,
-        })
-    for name, d in spec.definitions.items():
-        metadata["definitions"].append({
-            "name": name,
-            "title": d.title,
-            "type": d.type,
-            "description": d.description,
-        })
-    odps["product"]["metadata"] = metadata
-
-    return odps
-
+    }

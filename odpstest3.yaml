@@ -1,0 +1,209 @@
+schema: https://opendataproducts.org/v3.0/schema/odps.yaml
+version: '3.0'
+product:
+  contract:
+    id: 53581432-6c55-4ba2-a65f-72344a91553a
+    type: ODCS
+    contractVersion: 1.1.0
+    spec:
+      dataContractSpecification: 1.1.0
+      id: 53581432-6c55-4ba2-a65f-72344a91553a
+      info:
+        title: ''
+        version: 1.1.0
+        description: Views built on top of the seller tables.
+        dataProduct: my quantum
+        tenant: ClimateQuantumInc
+      servers:
+        my-postgres:
+          type: postgres
+          database: pypl-edw
+          schema: pp_access_views
+          host: localhost
+          port: 5432
+      terms:
+        usage: Predict sales over time
+        limitations: Data based on seller perspective, no buyer information
+        billing: 9.95 USD / megabyte
+      models:
+        tbl_1:
+          description: Provides core payment metrics
+          type: table
+          title: tbl
+          fields:
+            transaction_reference_date:
+              title: transaction reference date
+              type: date
+              required: false
+              primaryKey: false
+              description: Reference date for transaction
+              classification: public
+              enum: []
+              tags: []
+              links: {}
+              fields: {}
+              examples:
+              - '2022-10-03'
+              - '2020-01-28'
+              quality: []
+              config:
+                criticalDataElement: false
+                partitionKeyPosition: 1
+                partitioned: true
+                anonymizationStrategy: none
+                postgresType: date
+            rcvr_id:
+              title: receiver id
+              type: string
+              required: false
+              primaryKey: true
+              description: A description for column rcvr_id.
+              classification: restricted
+              enum: []
+              tags:
+              - uid
+              links: {}
+              fields: {}
+              quality: []
+              config:
+                criticalDataElement: false
+                partitionKeyPosition: -1
+                partitioned: false
+                postgresType: varchar(18)
+            rcvr_cntry_code:
+              title: receiver country code
+              type: string
+              required: false
+              primaryKey: false
+              description: Country code
+              classification: public
+              enum: []
+              tags: []
+              links: {}
+              fields: {}
+              quality:
+              - type: library
+                description: column should not contain null values
+                businessImpact: operational
+                dimension: completeness
+                rule: nullCheck
+                schedule: 0 20 * * *
+                scheduler: cron
+                severity: error
+                customProperties:
+                - property: FIELD_NAME
+                  value: null
+                - property: COMPARE_TO
+                  value: null
+                - property: COMPARISON_TYPE
+                  value: Greater than
+              config:
+                criticalDataElement: false
+                encryptedName: rcvr_cntry_code_encrypted
+                partitionKeyPosition: -1
+                partitioned: false
+                postgresType: varchar(2)
+          quality:
+          - type: library
+            description: Ensure row count is within expected volume range
+            businessImpact: operational
+            dimension: completeness
+            rule: countCheck
+            schedule: 0 20 * * *
+            scheduler: cron
+            severity: error
+            method: reconciliation
+          primaryKey: []
+          config:
+            dataGranularityDescription: Aggregation on columns txn_ref_dt, pmt_txn_id
+      definitions: {}
+      examples: []
+      servicelevels:
+        availability:
+          description: '2022-05-12T09:30:10-08:00'
+        retention:
+          period: 3y
+      links: {}
+      tags:
+      - transactions
+  details:
+    en:
+      name: ''
+      productID: 53581432-6c55-4ba2-a65f-72344a91553a
+      valueProposition: Predict sales over time
+      description: Views built on top of the seller tables.
+      visibility: private
+      status: null
+      productVersion: 1.1.0
+      tags:
+      - transactions
+      type: 1.1.0
+      metadata:
+        team:
+          owner: null
+  SLA:
+    declarative:
+    - dimension: Availability
+      displaytitle:
+      - en: Availability
+      objective: null
+      unit: percent
+    - dimension: Retention
+      displaytitle:
+      - en: Retention
+      objective: 3y
+      unit: period
+  support:
+    email: null
+    documentationURL: null
+  pricingPlans:
+    en:
+    - name: Default Plan
+      priceCurrency: USD
+      price: '9.95'
+      billingDuration: month
+      unit: /
+      maxTransactionQuantity: unlimited
+      offering: []
+  dataQuality:
+    declarative:
+    - dimension: library
+      displaytitle:
+      - en: Library (tbl_1.*)
+      description:
+      - en: Ensure row count is within expected volume range
+      objective: null
+      unit: null
+    - dimension: library
+      displaytitle:
+      - en: Library (tbl_1.rcvr_cntry_code)
+      description:
+      - en: column should not contain null values
+      objective: null
+      unit: null
+  license:
+    en:
+      scope:
+        definition: Predict sales over time
+        restrictions: Data based on seller perspective, no buyer information
+        geographicalArea: []
+        permanent: null
+        exclusive: null
+        rights: []
+      termination:
+        terminationConditions: null
+        continuityConditions: null
+      governance:
+        ownership: null
+        damages: null
+        confidentiality: null
+        applicableLaws: null
+        warranties: null
+        audit: null
+        forceMajeure: null
+  dataHolder:
+    en:
+      description: null
+      URL: null
+      telephone: null
+      addressCountry: null

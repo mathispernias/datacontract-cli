@@ -4,7 +4,7 @@ product:
   en:
     name: ''
     productID: 53581432-6c55-4ba2-a65f-72344a91553a
-    valueProposition: null
+    valueProposition: Predict sales over time
     description: Views built on top of the seller tables.
     productSeries: null
     visibility: null
@@ -15,13 +15,20 @@ product:
     tags:
     - transactions
     brandSlogan: null
-    type: null
+    type: 1.1.0
     logoURL: null
     OutputFileFormats: []
     useCases: []
   recommendedDataProducts: []
   pricingPlans:
-    en: []
+    en:
+    - name: Default Plan
+      priceCurrency: USD
+      price: '9.95'
+      billingDuration: month
+      unit: megabyte
+      maxTransactionQuantity: unlimited
+      offering: []
   dataOps:
     data:
       schemaLocationURL: null
@@ -47,7 +54,25 @@ product:
     specification: null
     format: null
     documentationURL: null
-  SLA: []
+  SLA:
+  - dimension: availability
+    displaytitle:
+    - en: Availability
+    objective: null
+    unit: percent
+    monitoring:
+      type: null
+      reference: null
+      spec: null
+  - dimension: retention
+    displaytitle:
+    - en: Retention
+    objective: 3y
+    unit: period
+    monitoring:
+      type: null
+      reference: null
+      spec: null
   support:
     phoneNumber: null
     phoneServiceHours: null

@@ -1,0 +1,2251 @@
+apiVersion: v3.0.2
+kind: DataContract
+id: 53581432-6c55-4ba2-a65f-72344a915523
+name: Internal Digitalwave RAW Jsonlines
+version: 1.1.0 
+status: active
+domain: market
+dataProduct: RAW Digitalwave DDM
+tenant: McKesson
+description:
+  purpose: Data contracts for Loyalty Digitalwave
+  limitations: None
+  usage: None
+tags: ['B2C', 'loyalty', 'Digitalwave']
+servers:
+  - server : datalake_dev
+    type: azure
+    storageAccount: dhdigitalwavedev
+    location: abfss://landing@dhdigitalwavedev.dfs.core.windows.net/entity={model}_uat/year={year}/month={month}/day={day}/*
+    format: json
+    delimiter: new_line
+  - server : datalake_prd
+    type: azure
+    storageAccount: dhdigitalwaveprd
+    location: abfss://landing@dhdigitalwaveprd.dfs.core.windows.net/entity={model}/year={year}/month={month}/day={day}/*
+    format: json
+    delimiter: new_line
+slaDefaultElement: DIGITALWAVE_DATA_SRC 
+slaProperties:
+  - property: latency 
+    value: 4
+    unit: d 
+    element: DIGITALWAVE_DATA_SRC 
+  - property: generalAvailability
+    value: 2025-02-28T09:30:10-08:00
+  - property: endOfSupport
+    value: 2065-02-12T09:30:10-08:00
+  - property: endOfLife
+    value: 2099-12-31T09:30:10-08:00
+  - property: retention
+    value: 99
+    unit: y
+  - property: frequency
+    value: 1
+    valueExt: 1
+    unit: d
+  - property: timeOfAvailability
+    value: 09:00-23:59
+    driver: regulatory 
+  - property: timeOfAvailability
+    value: 09:00-23:59
+    driver: analytics 
+team:
+  - username: Emma
+    role: Data Engineer
+    dateIn: 2025-01-06
+  - username: Damien
+    role: Data Architect
+    dateIn: 2023-06-04
+  - username: Darlene
+    role: Owner
+    comment: Keeper of the grail
+    name: Darlene Demchuk
+    dateIn: 2024-03-01
+support:
+  - channel: DataHub Support
+    tool: teams
+    scope: interactive
+    url: https://teams.microsoft.com/l/channel/19%3Af61656c235944861afc3d057f79976a1%40thread.skype/%F0%9F%92%81Support?groupId=cee15c75-5829-4682-b99f-df4373693b96&tenantId=da67ef1b-ca59-4db2-9a8c-aa8d94617a16
+  - channel: MEP
+    tool: teams
+    scope: announcements
+    url: https://teams.microsoft.com/l/channel/19%3A2d858f28cded490a8a863732818f3b2c%40thread.skype/%E2%80%BC%EF%B8%8FMEP?groupId=cee15c75-5829-4682-b99f-df4373693b96&tenantId=da67ef1b-ca59-4db2-9a8c-aa8d94617a16
+  - channel: DataContract Change
+    description: All announcement for all data contracts
+    tool: teams
+    scope: announcements
+    url: https://bitol.io/teams/channel/all-announcements
+  - channel: Legacy
+    tool: email
+    scope: announcements
+    url: mailto:dh_canada@mckesson.ca
+  - channel: Jira
+    tool: ticket
+    url: https://mckesson.atlassian.net/jira/software/c/projects/CANDAA/boards/4080
+schema:
+  - name: products
+    logicalType: object
+    physicalType: file
+    description: DL - Digitalwave - PRODUCT - Contains information for the Market
+    layerType: Datalake Store
+    destinationLoadMech: FULL
+    authoritativeDefinitions: 
+      - url: https://mckessonb2c.atlassian.net/wiki/spaces/WF/pages/3181084702/Products+Snowflake+data+load+and+share
+        type: businessDefinition
+    tags: ['B2C', 'loyalty', 'Digitalwave'] # To discuss if necessary
+    properties:
+    - name: active
+      busninessName: active
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: annualBannerBillback
+      busninessName: Annual Banner Bill Back
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: annualSupplierBillback
+      busninessName: annualSupplierBillback
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: assetPrimaryUrl
+      busninessName: assetPrimaryUrl
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: autostarPosCategoryCode
+      busninessName: autostarPosCategoryCode
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: bonusFormat
+      busninessName: bonusFormat
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: brand
+      busninessName: brand
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: brandType
+      busninessName: brandType
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: caseGtin
+      busninessName: caseGtin
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: catalog001
+      busninessName: catalog001
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: catalog002
+      busninessName: catalog002
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: categoryManagerApprovedWorkflow
+      busninessName: categoryManagerApprovedWorkflow
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: commissionCode
+      busninessName: commissionCode
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: currentRegularRetailZoneFive
+      busninessName: currentRegularRetailZoneFive
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: currentRegularRetailZoneFive
+      busninessName: currentRegularRetailZoneFive
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: currentRegularRetailZoneFive
+      busninessName: currentRegularRetailZoneFive
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: currentRegularRetailZoneThree
+      busninessName: currentRegularRetailZoneThree
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: currentRegularRetailZoneTwo
+      busninessName: currentRegularRetailZoneTwo
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: dataCoordinatorApprovedWorkflow
+      busninessName: dataCoordinatorApprovedWorkflow
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: depositCardActivationFee
+      busninessName: depositCardActivationFee
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: depth
+      busninessName: depth
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: din
+      busninessName: din
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: dinCodeMba
+      busninessName: dinCodeMba
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: dinCodeOpq
+      busninessName: dinCodeOpq
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: directProduct
+      busninessName: directProduct
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: displayProductCount
+      busninessName: displayProductCount
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: distributorDeadNetCost
+      busninessName: distributorDeadNetCost
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: draftSku
+      busninessName: draftSku
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: dropshipFutureRegularCost
+      busninessName: dropshipFutureRegularCost
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: dropshipFutureRegularCostDate
+      busninessName: dropshipFutureRegularCostDate
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: dropshipOriginalRegularCost
+      busninessName: dropshipOriginalRegularCost
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: dropshipRegularCost
+      busninessName: dropshipRegularCost
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: dropshipSic
+      busninessName: dropshipSic
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: dropshipSpecialCost
+      busninessName: dropshipSpecialCost
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: ecoFeesCode
+      busninessName: ecoFeesCode
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: ecoFeesCost
+      busninessName: ecoFeesCost
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: ecoFeesFlag
+      busninessName: ecoFeesFlag
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: effectiveDatePriceZoneFive
+      busninessName: effectiveDatePriceZoneFive
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: effectiveDatePriceZoneFour
+      busninessName: effectiveDatePriceZoneFour
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: effectiveDatePriceZoneOne
+      busninessName: effectiveDatePriceZoneOne
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: effectiveDatePriceZoneThree
+      busninessName: effectiveDatePriceZoneThree
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: effectiveDatePriceZoneTwo
+      busninessName: effectiveDatePriceZoneTwo
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: federalTaxApplicable
+      busninessName: federalTaxApplicable
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: forcedRetailFlag
+      busninessName: forcedRetailFlag
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: format
+      busninessName: Format
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: formatStaging
+      busninessName: FormatStaging
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: freeFormSkuDescriptionPart_en
+      busninessName: freeFormSkuDescriptionPart english
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: freeFormSkuDescriptionPart_fr
+      busninessName: freeFormSkuDescriptionPart french
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: giftSetDescription
+      busninessName: giftSetDescription
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: giftSetDescriptionStaging
+      busninessName: giftSetDescriptionStaging
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: giftValue
+      busninessName: giftValue
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: gtin14
+      busninessName: gtin14
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: hasReplaceSku
+      busninessName: hasReplaceSku
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: height
+      busninessName: height
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: historicaldistributorDeadNetDate
+      busninessName: historicaldistributorDeadNetDate
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: historicalMbaCode
+      busninessName: historicalMbaCode
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: isItemSet
+      busninessName: isItemSet
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: itemcode
+      busninessName: itemcode
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: itemName_en
+      busninessName: itemName_en
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: itemName_fr
+      busninessName: itemName_fr
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: labelQuantity
+      busninessName: labelQuantity
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: labelQuantityStaging
+      busninessName: labelQuantityStaging
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: labeltypecode
+      busninessName: labeltypecode
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: localizedNameItem
+      busninessName: localizedNameItem
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: localizedNameSku
+      busninessName: localizedNameSku
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: marginRetailFlag
+      busninessName: marginRetailFlag
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: mbaClassNumber
+      busninessName: mbaClassNumber
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: mbaCode
+      busninessName: mbaCode
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: mbaCodeOverride
+      busninessName: mbaCodeOverride
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: mbaFirstInvoiceDate
+      busninessName: mbaFirstInvoiceDate
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: mbaFutureRegularCost
+      busninessName: mbaFutureRegularCost
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: mbaFutureRegularCostDate
+      busninessName: mbaFutureRegularCostDate
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: mbaFutureSic
+      busninessName: mbaFutureSic
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: mbaFutureSicDate
+      busninessName: mbaFutureSicDate
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: mbaLastInvoiceDate
+      busninessName: mbaLastInvoiceDate
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: mbaName_en
+      busninessName: mbaName_en
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: mbaName_fr
+      busninessName: mbaName_fr
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: mbaProduct
+      busninessName: mbaProduct
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: mbaProductMaximumQuantity
+      busninessName: mbaProductMaximumQuantity
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: mbaProductMinimumQuantity
+      busninessName: mbaProductMinimumQuantity
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: mbaProductStatus
+      busninessName: mbaProductStatus
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: mbaRegularCost
+      busninessName: mbaRegularCost
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: mbaRetailPriceCategoryCode
+      busninessName: mbaRetailPriceCategoryCode
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: mbaSic
+      busninessName: mbaSic
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: mbaSpecialCost
+      busninessName: mbaSpecialCost
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: mbaSupplierNumber
+      busninessName: mbaSupplierNumber
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: mckRegularUpchargeCaseRate
+      busninessName: mckRegularUpchargeCaseRate
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: mckRegularUpchargeUnitRate
+      busninessName: mckRegularUpchargeUnitRate
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: modality
+      busninessName: modality
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: msq
+      busninessName: msq
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: multiactiveMmbaCode
+      busninessName: multiactiveMmbaCode
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: nameSku
+      busninessName: nameSku
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: npn
+      busninessName: npn
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: npnMba
+      busninessName: npnMba
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: npnOpq
+      busninessName: npnOpq
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: numberOfSkus
+      busninessName: numberOfSkus
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: nwdaCode
+      busninessName: nwdaCode
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: offInvoiceAmount
+      busninessName: offInvoiceAmount
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: onPlanogram
+      busninessName: onPlanogram
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: ownBrandCategoryManager
+      busninessName: ownBrandCategoryManager
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: packGtin
+      busninessName: packGtin
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: planogramAuthorized
+      busninessName: planogramAuthorized
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: plCategoryManagerApprovedWorkflow
+      busninessName: plCategoryManagerApprovedWorkflow
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: posDescription
+      busninessName: posDescription
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: posFederalTaxApplicable
+      busninessName: posFederalTaxApplicable
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: posFormat
+      busninessName: posFormat
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: posLabel
+      busninessName: posLabel
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: posLabelQuantity
+      busninessName: posLabelQuantity
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: posProvincialTaxApplicable
+      busninessName: posProvincialTaxApplicable
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: posStatus
+      busninessName: posStatus
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: posStatusNotificationDate
+      busninessName: posStatusNotificationDate
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: posUnitOfMeasureFormat
+      busninessName: posUnitOfMeasureFormat
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: preDefinedSkuName
+      busninessName: preDefinedSkuName
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: preLabeled
+      busninessName: preLabeled
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: preLabelPrice
+      busninessName: preLabelPrice
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: priceGroup
+      busninessName: priceGroup
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: primaryMbaCode
+      busninessName: primaryMbaCode
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: priority
+      busninessName: priority
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: privateLabelBrand
+      busninessName: privateLabelBrand
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: privateLabelDeadNetSellingFutureCostRbg
+      busninessName: privateLabelDeadNetSellingFutureCostRbg
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: privateLabelDeadNetSellingFutureDateRbg
+      busninessName: privateLabelDeadNetSellingFutureDateRbg
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: privateLabelDeadNetSellingOriginalCostRbg
+      busninessName: privateLabelDeadNetSellingOriginalCostRbg
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: privilegedVendor
+      busninessName: privilegedVendor
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: productEndDate
+      busninessName: productEndDate
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: productStartDate
+      busninessName: productStartDate
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: productStrength
+      busninessName: productStrength
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: productType
+      busninessName: productType
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: progressBrandName
+      busninessName: progressBrandName
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: progressPriceGroupId
+      busninessName: progressPriceGroupId
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: progressSupplierDivisionId
+      busninessName: progressSupplierDivisionId
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: progressSupplierId
+      busninessName: progressSupplierId
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: progressUpc
+      busninessName: progressUpc
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: promoBannerBillback
+      busninessName: promoBannerBillback
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: promoGroup
+      busninessName: promoGroup
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: promoSupplierBillback
+      busninessName: promoSupplierBillback
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: provincialTaxApplicable
+      busninessName: provincialTaxApplicable
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: quebecCategoryManager
+      busninessName: quebecCategoryManager
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: quebecDiscountable
+      busninessName: quebecDiscountable
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: quebecDrugSchedule
+      busninessName: quebecDrugSchedule
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: quebecWorkflow
+      busninessName: quebecWorkflow
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: ramqCovered
+      busninessName: ramqCovered
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: replacementSkuNumber
+      busninessName: replacementSkuNumber
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: rocCategoryManager
+      busninessName: rocCategoryManager
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: rocWorkflow
+      busninessName: rocWorkflow
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: sizeGroup
+      busninessName: sizeGroup
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: skucode
+      busninessName: skucode
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: skuEndDateStaging
+      busninessName: skuEndDateStaging
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: skuName_en
+      busninessName: skuName_en
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: skuName_fr
+      busninessName: skuName_fr
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: skuStatus
+      busninessName: skuStatus
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: skuStatusStaging
+      busninessName: skuStatusStaging
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: startDateReplaceSku
+      busninessName: startDateReplaceSku
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: storefrontcode
+      busninessName: storefrontcode
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: suggestedBrand
+      busninessName: suggestedBrand
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: suggestedVendorPrice
+      busninessName: suggestedVendorPrice
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: supplierContactQuebec
+      busninessName: supplierContactQuebec
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: supplierSourceType
+      busninessName: supplierSourceType
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: taxonomy
+      busninessName: taxonomy
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: theraputicClassNumber
+      busninessName: theraputicClassNumber
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: tradeshow
+      busninessName: tradeshow
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: unitCostDivisor
+      busninessName: unitCostDivisor
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: unitGtin
+      busninessName: unitGtin
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: unitOfMeasureFormat
+      busninessName: unitOfMeasureFormat
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: unitOfMeasureFormatStaging
+      busninessName: unitOfMeasureFormatStaging
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: unitsPerCase
+      busninessName: unitsPerCase
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: unitsPerPack
+      busninessName: unitsPerPack
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: updated_at
+      busninessName: updated_at
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: vendorApprovedWorkflow
+      busninessName: vendorApprovedWorkflow
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: vendorcode
+      busninessName: vendorcode
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: vendorProductCode
+      busninessName: vendorProductCode
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: vendorSkuStatus
+      busninessName: vendorSkuStatus
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: weight
+      busninessName: weight
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: width
+      busninessName: width
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+  - name: vendors
+    logicalType: object
+    physicalType: file
+    description: DL - Digitalwave - Vendors - Contains information for the Product
+    layerType: Datalake Store
+    destinationLoadMech: FULL
+    tags: ['B2C', 'loyalty', 'Digitalwave'] # To discuss if necessary
+    authoritativeDefinitions: 
+      - url: https://mckessonb2c.atlassian.net/wiki/spaces/WF/pages/3175120897/Vendors+Snowflake+data+load+and+share
+        type: businessDefinition
+    properties:
+    - name: address
+      busninessName: address
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: brands
+      busninessName: brands
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: city
+      busninessName: city
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: country
+      busninessName: country
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: email
+      busninessName: email
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: fax
+      busninessName: fax
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: inactive
+      busninessName: inactive
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: mba_supplier_numbers
+      busninessName: mba_supplier_numbers
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: minimumOrderMessage
+      busninessName: minimumOrderMessage
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: minimumOrderValue
+      busninessName: minimumOrderValue
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: name
+      busninessName: name
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: ownBrandsVendorPrivateLabelVendor
+      busninessName: ownBrandsVendorPrivateLabelVendor
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: parent
+      busninessName: parent
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: paymentTermsNumberDaysNet
+      busninessName: paymentTermsNumberDaysNet
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: postalCode
+      busninessName: postalCode
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: province
+      busninessName: province
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: quebecCategoryManager
+      busninessName: quebecCategoryManager
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: returnPolicyEn
+      busninessName: returnPolicyEn
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: returnPolicyFr
+      busninessName: returnPolicyFr
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: rocCategoryManager
+      busninessName: rocCategoryManager
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: sequence
+      busninessName: sequence
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: sourcesupplyflags
+      busninessName: sourcesupplyflags
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: supplierSapCustomerNum
+      busninessName: supplierSapCustomerNum
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: supplierSapVhomeNum
+      busninessName: supplierSapVhomeNum
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: supplierWebsite
+      busninessName: supplierWebsite
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: updated_at
+      busninessName: updated_at
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: validBannerPurchasingAgreement
+      busninessName: validBannerPurchasingAgreement
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: vbra_numbers
+      busninessName: vbra_numbers
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: vendorcode
+      busninessName: vendorcode
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: warrantyPolicyEn
+      busninessName: warrantyPolicyEn
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: warrantyPolicyFr
+      busninessName: warrantyPolicyFr
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+  # - name: stores
+  #   logicalType: object
+  #   physicalType: file
+  #   description: DL - Digitalwave - Stores - Contains information for the period
+  #   layerType: Datalake Store
+  #   destinationLoadMech: FULL
+  #   authoritativeDefinitions: 
+  #     - url: https://mckessonb2c.atlassian.net/wiki/spaces/WF/pages/3173908486/Stores+Snowflake+data+load+and+share
+  #       type: businessDefinition
+  #   tags: ['B2C', 'loyalty', 'Digitalwave'] # To discuss if necessary
+  #   properties:
+  #   - name: storeName
+  #     businessName: storeName
+  #     logicalType: string
+  #     physicalType: string
+  #     required: true
+  #     unique: true
+  #     primaryKey: true
+  #   - name: countryCode
+  #     businessName: countryCode
+  #     logicalType: string
+  #     physicalType: string
+  #     required: true
+  #     unique: false
+  #   - name: provinceState
+  #     businessName: provinceState
+  #     logicalType: string
+  #     physicalType: string
+  #     required: true
+  #     unique: false
+  #   - name: postalZipCode 
+  #     businessName: postalZipCode 
+  #     logicalType: date
+  #     physicalType: date
+  #     required: true
+  #     unique: false
+  #     examples:
+  #       - "J4B 0G6"
+  #   - name: retailBanner  
+  #     businessName: retailBanner
+  #     logicalType: string
+  #     physicalType: string
+  #     required: false
+  #     unique: false
+  #   - name: physicalLocationNumber   
+  #     businessName: physicalLocationNumber
+  #     logicalType: string
+  #     physicalType: string
+  #     required: false
+  #     unique: false
+  #   - name: financialSystemNumber
+  #     businessName: financialSystemNumber
+  #     logicalType: integer
+  #     physicalType: bigint
+  #     required: true
+  #     unique: true
+  #   - name: businessUnit 
+  #     businessName: businessUnit
+  #     logicalType: string
+  #     physicalType: string
+  #     required: true
+  #     unique: false
+  #     quality:
+  #     - rule: validValues
+  #       validValues: ['UNI','PRX','ROC']
+  #   - name: extendedData
+  #     businessName: extendedData
+  #     logicalType: object
+  #     physicalType: object
+  #     required: true
+  #     unique: false
+  #     properties:
+  #     - name : pharmacyUUID
+  #       businessName: pharmacyUUID
+  #       logicalType: string
+  #       physicalType: string
+  #       required: true
+  #       unique: true
+  #       examples:
+  #         - "ec43dd63-c258-4506-8965-88a9e0c130ad"
+  #   - name: sharedDate
+  #     businessName: sharedDate
+  #     logicalType: date
+  #     logicalTypeOptions:
+  #       format: "yyyy-MM-ddTHH:mm:ss.SSS"
+  #     examples:
+  #      - "2024-11-08T10:06:41.705"
+  #     physicalType: string
+  #     required: true
+  #     unique: true
+  #   - name: active
+  #     businessName: isActive
+  #     logicalType: boolean
+  #     physicalType: boolean
+  #     required: true
+  #     unique: false
+  #   - name: RxHours
+  #     businessName: RxHours
+  #     logicalType: object
+  #     physicalType: object
+  #     required: false
+  #     unique: false
+  #     properties:
+  #     - name : FridayOpen
+  #       businessName: FridayOpen
+  #       logicalType: date
+  #       logicalTypeOptions:
+  #         format: "HH:mm tt"
+  #       physicalType: string
+  #       required: false
+  #       unique: false
+  #       examples:
+  #         - "09:00 AM"
+  #     - name : FridayClose
+  #       businessName: FridayClose
+  #       logicalType: date
+  #       logicalTypeOptions:
+  #         format: "HH:mm tt"
+  #       physicalType: string
+  #       required: false
+  #       unique: false
+  #       examples:
+  #         - "08:00 PM"
+  #     - name : SaturdayOpen
+  #       businessName: SaturdayOpen
+  #       logicalType: date
+  #       logicalTypeOptions:
+  #         format: "HH:mm tt"
+  #       physicalType: string
+  #       required: false
+  #       unique: false
+  #       examples:
+  #       - "09:00 AM"
+  #     - name : SaturdayClose
+  #       businessName: SaturdayClose
+  #       logicalType: date
+  #       logicalTypeOptions:
+  #         format: "HH:mm tt"
+  #       physicalType: string
+  #       required: false
+  #       unique: false
+  #       examples:
+  #         - "08:00 PM"
+  #     - name : SundayOpen
+  #       businessName: SundayOpen
+  #       logicalType: date
+  #       logicalTypeOptions:
+  #         format: "HH:mm tt"
+  #       physicalType: string
+  #       required: false
+  #       unique: false
+  #       examples:
+  #         - "10:00 AM"
+  #     - name : SundayClose
+  #       businessName: SundayClose
+  #       logicalType: date
+  #       logicalTypeOptions:
+  #         format: "HH:mm tt"
+  #       physicalType: string
+  #       required: false
+  #       unique: false
+  #       examples:
+  #         - "08:00 PM"
+  #     - name : MondayOpen
+  #       businessName: MondayOpen
+  #       logicalType: date
+  #       logicalTypeOptions:
+  #         format: "HH:mm tt"
+  #       physicalType: string
+  #       required: false
+  #       unique: false
+  #       examples:
+  #         - "09:00 AM"
+  #     - name : MondayClose
+  #       businessName: MondayClose
+  #       logicalType: date
+  #       logicalTypeOptions:
+  #         format: "HH:mm tt"
+  #       physicalType: string
+  #       required: false
+  #       unique: false
+  #       examples:
+  #         - "08:00 PM"
+  #     - name : TuesdayOpen
+  #       businessName: TuesdayOpen
+  #       logicalType: date
+  #       logicalTypeOptions:
+  #         format: "HH:mm tt"
+  #       physicalType: string
+  #       required: false
+  #       unique: false
+  #       examples:
+  #         - "09:00 AM"
+  #     - name : TuesdayClose
+  #       businessName: TuesdayClose
+  #       logicalType: date
+  #       logicalTypeOptions:
+  #         format: "HH:mm tt"
+  #       physicalType: string
+  #       required: false
+  #       unique: false
+  #       examples:
+  #         - "08:00 PM"
+  #     - name : WednesdayOpen
+  #       businessName: WednesdayOpen
+  #       logicalType: date
+  #       logicalTypeOptions:
+  #         format: "HH:mm tt"
+  #       physicalType: string
+  #       required: false
+  #       unique: false
+  #       examples:
+  #         - "09:00 AM"
+  #     - name : WednesdayClose
+  #       businessName: WednesdayClose
+  #       logicalType: date
+  #       logicalTypeOptions:
+  #         format: "HH:mm tt"
+  #       physicalType: string
+  #       required: false
+  #       unique: false
+  #       examples:
+  #         - "08:00 PM"
+  #     - name : ThursdayOpen
+  #       businessName: ThursdayOpen
+  #       logicalType: date
+  #       logicalTypeOptions:
+  #         format: "HH:mm tt"
+  #       physicalType: string
+  #       required: false
+  #       unique: false
+  #       examples:
+  #         - "09:00 AM"
+  #     - name : ThursdayClose
+  #       businessName: ThursdayClose
+  #       logicalType: date
+  #       logicalTypeOptions:
+  #         format: "HH:mm tt"
+  #       physicalType: string
+  #       required: false
+  #       unique: false
+  #       examples:
+  #         - "08:00 PM"
+  #   - name: StoreHours
+  #     businessName: StoreHours
+  #     logicalType: object
+  #     physicalType: object
+  #     required: false
+  #     unique: false
+  #     properties:
+  #     - name : FridayOpen
+  #       businessName: FridayOpen
+  #       logicalType: date
+  #       logicalTypeOptions:
+  #         format: "HH:mm tt"
+  #       physicalType: string
+  #       required: false
+  #       unique: false
+  #       examples:
+  #         - "09:00 AM"
+  #     - name : FridayClose
+  #       businessName: FridayClose
+  #       logicalType: date
+  #       logicalTypeOptions:
+  #         format: "HH:mm tt"
+  #       physicalType: string
+  #       required: false
+  #       unique: false
+  #       examples:
+  #         - "08:00 PM"
+  #     - name : SaturdayOpen
+  #       businessName: SaturdayOpen
+  #       logicalType: date
+  #       logicalTypeOptions:
+  #         format: "HH:mm tt"
+  #       physicalType: string
+  #       required: false
+  #       unique: false
+  #       examples:
+  #         - "09:00 AM"
+  #     - name : SaturdayClose
+  #       businessName: SaturdayClose
+  #       logicalType: date
+  #       logicalTypeOptions:
+  #         format: "HH:mm tt"
+  #       physicalType: string
+  #       required: false
+  #       unique: false
+  #       examples:
+  #         - "08:00 PM"
+  #     - name : SundayOpen
+  #       businessName: SundayOpen
+  #       logicalType: date
+  #       logicalTypeOptions:
+  #         format: "HH:mm tt"
+  #       physicalType: string
+  #       required: false
+  #       unique: false
+  #       examples:
+  #         - "10:00 AM"
+  #     - name : SundayClose
+  #       businessName: SundayClose
+  #       logicalType: date
+  #       logicalTypeOptions:
+  #         format: "HH:mm tt"
+  #       physicalType: string
+  #       required: false
+  #       unique: false
+  #       examples:
+  #         - "08:00 PM"
+  #     - name : MondayOpen
+  #       businessName: MondayOpen
+  #       logicalType: date
+  #       logicalTypeOptions:
+  #         format: "HH:mm tt"
+  #       physicalType: string
+  #       required: false
+  #       unique: false
+  #       examples:
+  #         - "09:00 AM"
+  #     - name : MondayClose
+  #       businessName: MondayClose
+  #       logicalType: date
+  #       logicalTypeOptions:
+  #         format: "HH:mm tt"
+  #       physicalType: string
+  #       required: false
+  #       unique: false
+  #       examples:
+  #         - "08:00 PM"
+  #     - name : TuesdayOpen
+  #       businessName: TuesdayOpen
+  #       logicalType: date
+  #       logicalTypeOptions:
+  #         format: "HH:mm tt"
+  #       physicalType: string
+  #       required: false
+  #       unique: false
+  #       examples:
+  #         - "09:00 AM"
+  #     - name : TuesdayClose
+  #       businessName: TuesdayClose
+  #       logicalType: date
+  #       logicalTypeOptions:
+  #         format: "HH:mm tt"
+  #       physicalType: string
+  #       required: false
+  #       unique: false
+  #       examples:
+  #         - "08:00 PM"
+  #     - name : WednesdayOpen
+  #       businessName: WednesdayOpen
+  #       logicalType: date
+  #       logicalTypeOptions:
+  #         format: "HH:mm tt"
+  #       physicalType: string
+  #       required: false
+  #       unique: false
+  #       examples:
+  #         - "09:00 AM"
+  #     - name : WednesdayClose
+  #       businessName: WednesdayClose
+  #       logicalType: date
+  #       logicalTypeOptions:
+  #         format: "HH:mm tt"
+  #       physicalType: string
+  #       required: false
+  #       unique: false
+  #       examples:
+  #         - "08:00 PM"
+  #     - name : ThursdayOpen
+  #       businessName: ThursdayOpen
+  #       logicalType: date
+  #       logicalTypeOptions:
+  #         format: "HH:mm tt"
+  #       physicalType: string
+  #       required: false
+  #       unique: false
+  #       examples:
+  #         - "09:00 AM"
+  #     - name : ThursdayClose
+  #       businessName: ThursdayClose
+  #       logicalType: date
+  #       logicalTypeOptions:
+  #         format: "HH:mm tt"
+  #       physicalType: string
+  #       required: false
+  #       unique: false
+  #       examples:
+  #         - "08:00 PM"
+  #   - name: DeliveryHours
+  #     businessName: DeliveryHours
+  #     logicalType: object
+  #     physicalType: object
+  #     required: false
+  #     unique: false
+  #     properties:
+  #     - name : FridayOpen
+  #       businessName: FridayOpen
+  #       logicalType: date
+  #       logicalTypeOptions:
+  #         format: "HH:mm tt"
+  #       physicalType: string
+  #       required: false
+  #       unique: false
+  #       examples:
+  #         - "09:00 AM"
+  #     - name : FridayClose
+  #       businessName: FridayClose
+  #       logicalType: date
+  #       logicalTypeOptions:
+  #         format: "HH:mm tt"
+  #       physicalType: string
+  #       required: false
+  #       unique: false
+  #       examples:
+  #         - "08:00 PM"
+  #     - name : SaturdayOpen
+  #       businessName: SaturdayOpen
+  #       logicalType: date
+  #       logicalTypeOptions:
+  #         format: "HH:mm tt"
+  #       physicalType: string
+  #       required: false
+  #       unique: false
+  #       examples:
+  #         - "09:00 AM"
+  #     - name : SaturdayClose
+  #       businessName: SaturdayClose
+  #       logicalType: date
+  #       logicalTypeOptions:
+  #         format: "HH:mm tt"
+  #       physicalType: string
+  #       required: false
+  #       unique: false
+  #       examples:
+  #         - "08:00 PM"
+  #     - name : SundayOpen
+  #       businessName: SundayOpen
+  #       logicalType: date
+  #       logicalTypeOptions:
+  #         format: "HH:mm tt"
+  #       physicalType: string
+  #       required: false
+  #       unique: false
+  #       examples:
+  #         - "10:00 AM"
+  #     - name : SundayClose
+  #       businessName: SundayClose
+  #       logicalType: date
+  #       logicalTypeOptions:
+  #         format: "HH:mm tt"
+  #       physicalType: string
+  #       required: false
+  #       unique: false
+  #       examples:
+  #         - "08:00 PM"
+  #     - name : MondayOpen
+  #       businessName: MondayOpen
+  #       logicalType: date
+  #       logicalTypeOptions:
+  #         format: "HH:mm tt"
+  #       physicalType: string
+  #       required: false
+  #       unique: false
+  #       examples:
+  #         - "09:00 AM"
+  #     - name : MondayClose
+  #       businessName: MondayClose
+  #       logicalType: date
+  #       logicalTypeOptions:
+  #         format: "HH:mm tt"
+  #       physicalType: string
+  #       required: false
+  #       unique: false
+  #       examples:
+  #         - "08:00 PM"
+  #     - name : TuesdayOpen
+  #       businessName: TuesdayOpen
+  #       logicalType: date
+  #       logicalTypeOptions:
+  #         format: "HH:mm tt"
+  #       physicalType: string
+  #       required: false
+  #       unique: false
+  #       examples:
+  #         - "09:00 AM"
+  #     - name : TuesdayClose
+  #       businessName: TuesdayClose
+  #       logicalType: date
+  #       logicalTypeOptions:
+  #         format: "HH:mm tt"
+  #       physicalType: string
+  #       required: false
+  #       unique: false
+  #       examples:
+  #         - "08:00 PM"
+  #     - name : WednesdayOpen
+  #       businessName: WednesdayOpen
+  #       logicalType: date
+  #       logicalTypeOptions:
+  #         format: "HH:mm tt"
+  #       physicalType: string
+  #       required: false
+  #       unique: false
+  #       examples:
+  #         - "09:00 AM"
+  #     - name : WednesdayClose
+  #       businessName: WednesdayClose
+  #       logicalType: date
+  #       physicalType: string
+  #       required: false
+  #       unique: false
+  #       examples:
+  #         - "08:00 PM"
+  #     - name : ThursdayOpen
+  #       businessName: ThursdayOpen
+  #       logicalType: date
+  #       physicalType: string
+  #       required: false
+  #       unique: false
+  #       examples:
+  #         - "09:00 AM"
+  #     - name : ThursdayClose
+  #       businessName: ThursdayClose
+  #       logicalType: string
+  #       physicalType: string
+  #       required: false
+  #       unique: false
+  #       examples:
+  #         - "08:00 PM"   
+  #   - name: RxHolidayHours
+  #     businessName: RxHolidayHours
+  #     logicalType: array
+  #     physicalType: array
+  #     required: false
+  #     unique: false
+  #     items:
+  #       logicalType: object
+  #       properties:
+  #       - name: Date 
+  #         businessName: Date
+  #         logicalType: date
+  #         physicalType: string
+  #         logicalTypeOptions:
+  #             format: "yyyy-MM-dd"
+  #         examples:
+  #         - "2024-08-13"
+  #       - name: Close 
+  #         businessName: Close
+  #         logicalType: date
+  #         physicalType: string
+  #         logicalTypeOptions:
+  #             format: "HH:mm tt"
+  #         examples:
+  #         - "02:00 PM"
+  #       - name: Open 
+  #         businessName: Open
+  #         logicalType: date
+  #         physicalType: string
+  #         logicalTypeOptions:
+  #             format: "HH:mm tt"
+  #         examples:
+  #         - "10:00 AM"
+  #   - name: StoreHolidayHours
+  #     businessName: StoreHolidayHours
+  #     logicalType: array
+  #     physicalType: array
+  #     required: false
+  #     unique: false
+  #     items:
+  #       logicalType: object
+  #       properties:
+  #       - name: Date 
+  #         businessName: Date
+  #         logicalType: date
+  #         physicalType: string
+  #         logicalTypeOptions:
+  #             format: "yyyy-MM-dd"
+  #         examples:
+  #         - "2024-08-13"
+  #       - name: Close 
+  #         businessName: Close
+  #         logicalType: date
+  #         physicalType: string
+  #         logicalTypeOptions:
+  #             format: "HH:mm tt"
+  #         examples:
+  #         - "02:00 PM"
+  #       - name: Open 
+  #         businessName: Open
+  #         logicalType: date
+  #         physicalType: string
+  #         logicalTypeOptions:
+  #             format: "HH:mm tt"
+  #         examples:
+  #         - "10:00 AM"
+  #   - name:  DeliveryHolidayHours
+  #     businessName: DeliveryHolidayHours
+  #     logicalType: array
+  #     physicalType: array
+  #     required: true
+  #     unique: false
+  #     items:
+  #       logicalType: object
+  #       properties:
+  #       - name: Date 
+  #         businessName: Date
+  #         logicalType: date
+  #         physicalType: string
+  #         logicalTypeOptions:
+  #             format: "yyyy-MM-dd"
+  #         examples:
+  #         - "2024-08-13"
+  #       - name: Close 
+  #         businessName: Close
+  #         logicalType: date
+  #         physicalType: string
+  #         logicalTypeOptions:
+  #             format: "HH:mm tt"
+  #         examples:
+  #         - "02:00 PM"
+  #       - name: Open 
+  #         businessName: Open
+  #         logicalType: date
+  #         physicalType: string
+  #         logicalTypeOptions:
+  #             format: "HH:mm tt"
+  #         examples:
+  #         - "10:00 AM"
+  - name: taxonomys
+    logicalType: object
+    physicalType: file
+    description: DL - Digitalwave - taxonomy - Contains information for the reference on aggregated_data entity
+    layerType: Datalake Store
+    destinationLoadMech: FULL
+    authoritativeDefinitions: 
+      - url: https://mckessonb2c.atlassian.net/wiki/spaces/WF/pages/3280928769/Taxonomy+integration+between+DW+and+Snowflake+with+Mulesoft
+        type: businessDefinition
+    tags: ['B2C', 'loyalty', 'Digitalwave'] # To discuss if necessary
+    properties:
+    - name: categoryName_en
+      businessName: categoryName_en
+      logicalType: string
+      physicalType: string
+      required: true
+      unique: false
+    - name: categoryName_fr
+      businessName: categoryName_fr
+      logicalType: string
+      physicalType: string
+      required: true
+      unique: false
+    - name: digitalCategoryName
+      businessName: digitalCategoryName
+      logicalType: string
+      physicalType: string
+      required: true
+      unique: false
+    - name: digitalProductDivisionName
+      businessName: digitalProductDivisionName
+      logicalType: string
+      physicalType: string
+      required: true
+      unique: false
+    - name: digitalSubCategoryName
+      businessName: digitalSubCategoryName
+      logicalType: string
+      physicalType: string
+      required: true
+      unique: false
+    - name: displayName_en
+      businessName: displayName_en
+      logicalType: string
+      physicalType: string
+      required: true
+      unique: false
+    - name: displayName_fr
+      businessName: displayName_fr
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: division
+      businessName: division
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: divisionName_en
+      businessName: divisionName_en
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: divisionName_fr
+      businessName: divisionName_fr
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: inactive
+      businessName: inactive
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: kioskNumber
+      businessName: kioskNumber
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: localizedName
+      businessName: localizedName
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: metaDescription
+      businessName: metaDescription
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: metaTitle
+      businessName: metaTitle
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: name
+      businessName: name
+      logicalType: string
+      physicalType: string
+      required: true
+      unique: false
+    - name: nwdaCode
+      businessName: nwdaCode
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: posGstEligible
+      businessName: posGstEligible
+      logicalType: boolean
+      physicalType: string
+      required: false
+      unique: false
+    - name: quebecDiscontable
+      businessName: quebecDiscontable
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: searchKeywords
+      businessName: searchKeywords
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: subcategory
+      businessName: subcategory
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: subCategoryImageName
+      businessName: subCategoryImageName
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: subcategoryName_en
+      businessName: subcategoryName_en
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: subcategoryName_fr
+      businessName: subcategoryName_fr
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: taxonomycode
+      businessName: taxonomycode
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+      examples:
+        - "10"
+        - "10_1500"
+        - "10_1500_01"
+    - name: taxonomyLevel
+      businessName: aggregated_data metric column name
+      logicalType: integer
+      physicalType: string
+      required: false
+      unique: false
+      examples:
+        - "1"
+        - "2"
+        - "3"
+    - name: updated_at
+      businessName: aggregated_data metric column name
+      logicalType: date
+      logicalTypeOptions:
+          format: "yyyy-MM-dd HH:mm:ss"
+      physicalType: string
+      required: false
+      unique: false
+      examples:
+        - "2025-04-02 20:30:05"
+  - name: exclusions
+    logicalType: object
+    physicalType: file
+    description: DL - Digitalwave - Exclusion - Contains information for the Market
+    layerType: Datalake Store
+    destinationLoadMech: FULL
+    authoritativeDefinitions: 
+      - url: https://mckessonb2c.atlassian.net/wiki/spaces/WF/pages/3277389828/Exclusions+Snowflake+data+load+and+share
+        type: businessDefinition
+    tags: ['B2C', 'loyalty', 'Digitalwave'] # To discuss if necessary
+    properties:
+    - name: businessUnit
+      busninessName: businessUnit
+      logicalType: string
+      physicalType: string
+      required: true
+      unique: false
+      examples:
+        - "PROXIM"
+        - "UNIPRIX"
+    - name: exclusionType
+      busninessName: exclusionType
+      logicalType: string
+      physicalType: string
+      required: true
+      unique: false
+      examples:
+        - "subCategory"
+    - name: exclusionCode
+      busninessName: exclusionCode
+      logicalType: integer
+      physicalType: bigint
+      required: true
+      unique: false
+      examples:
+        - 624002
+    - name: exclusionName
+      busninessName: exclusionName
+      logicalType: integer
+      physicalType: bigint
+      required: true
+      unique: false
+      examples:
+        - "PREMIERS SOINS-Crèmes"
+    - name: eligibleBase
+      busninessName: eligibleBase
+      logicalType: boolean
+      physicalType: boolean
+      required: true
+      unique: false
+    - name: eligibleBonus
+      busninessName: eligibleBonus
+      logicalType: boolean
+      physicalType: boolean
+      required: true
+      unique: false
+    - name: eligibleRedemption
+      busninessName: eligibleRedemption
+      logicalType: boolean
+      physicalType: boolean
+      required: true
+      unique: false
+    - name: provinceState
+      busninessName: provinceState
+      logicalType: string
+      physicalType: string
+      required: true
+      unique: false
+      examples:
+        - "QC"
+    - name: regionType
+      busninessName: regionType
+      logicalType: string
+      physicalType: string
+      required: false
+      unique: false
+    - name: sharedDate
+      busninessName: sharedDate
+      logicalType: date
+      physicalType: string
+      required: false
+      unique: false
+      logicalTypeOptions:
+        format: "yyyy-MM-ddTHH:mm:ss.SSS"
+      examples:
+       - "2024-11-08T10:06:41.705"
+    - name: extendedData
+      businessName: extendedData
+      logicalType: object
+      physicalType: object
+      required: false
+      unique: false
+      properties:
+      - name : pharmacyUUID
+        businessName: pharmacyUUID
+        logicalType: string
+        physicalType: string
+        required: true
+        unique: true
+        examples:
+          - "ec43dd63-c258-4506-8965-88a9e0c130ad"
+
+
+  

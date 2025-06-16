@@ -1,65 +1,66 @@
-schema: https://opendataproducts.org/v3.0rc/schema/odps.yaml
+schema: https://opendataproducts.org/v3.0/schema/odps.yaml
 version: '3.0'
 product:
-  en:
-    name: ''
-    productID: 53581432-6c55-4ba2-a65f-72344a91553a
-    valueProposition: null
-    description: Views built on top of the seller tables.
-    productSeries: null
-    visibility: null
-    status: null
-    version: 1.1.0
-    categories: []
-    standards: []
-    tags:
-    - transactions
-    brandSlogan: null
-    type: null
-    logoURL: null
-    OutputFileFormats: []
-    useCases: []
-  recommendedDataProducts: []
-  pricingPlans:
-    en: []
-  dataOps:
-    data:
-      schemaLocationURL: null
-    lineage:
-      dataLineageTool: null
-      dataLineageOutput: null
-    infrastructure:
-      platform: null
-      region: null
-      storageTechnology: null
-      storageType: null
-      containerTool: null
-    build:
-      format: null
-      hashType: null
-      checksum: null
-      signatureType: null
-      scriptURL: null
-      deploymentDocumentationURL: null
-  dataAccess:
-    type: null
-    authenticationMethod: null
-    specification: null
-    format: null
-    documentationURL: null
-  SLA: []
+  details:
+    en:
+      name: ''
+      productID: 53581432-6c55-4ba2-a65f-72344a91553a
+      valueProposition: Predict sales over time
+      description: Views built on top of the seller tables.
+      visibility: private
+      status: null
+      productVersion: 1.1.0
+      tags:
+      - transactions
+      type: 1.1.0
+      metadata:
+        team:
+          owner: null
+  SLA:
+    declarative:
+    - dimension: Availability
+      displaytitle:
+      - en: Availability
+      objective: null
+      unit: percent
+    - dimension: Retention
+      displaytitle:
+      - en: Retention
+      objective: 3y
+      unit: period
   support:
-    phoneNumber: null
-    phoneServiceHours: null
     email: null
-    emailServiceHours: null
     documentationURL: null
-  dataQuality: []
+  pricingPlans:
+    en:
+    - name: 9.95 USD / megabyte
+      priceCurrency: USD
+      price: '9.95'
+      billingDuration: month
+      unit: /
+      maxTransactionQuantity: unlimited
+      offering: []
+  dataQuality:
+    declarative:
+    - dimension: library
+      displaytitle:
+      - en: Library (tbl_1.*)
+      description:
+      - en: Ensure row count is within expected volume range
+      objective: null
+      unit: null
+    - dimension: library
+      displaytitle:
+      - en: Library (tbl_1.rcvr_cntry_code)
+      description:
+      - en: column should not contain null values
+      objective: null
+      unit: null
   license:
     en:
       scope:
-        definition: null
-        restrictions: null
+        definition: Predict sales over time
+        restrictions: Data based on seller perspective, no buyer information
         geographicalArea: []
         permanent: null
         exclusive: null
@@ -77,19 +78,7 @@ product:
         forceMajeure: null
   dataHolder:
     en:
-      taxID: null
-      vatID: null
-      businessDomain: null
-      logoURL: null
       description: null
       URL: null
       telephone: null
-      streetAddress: null
-      postalCode: null
-      addressRegion: null
-      addressLocality: null
       addressCountry: null
-      aggregateRating: null
-      ratingCount: null
-      slogan: null
-      parentOrganization: null

@@ -1,0 +1,82 @@
+schema: https://opendataproducts.org/v3.1/schema/odps.yaml
+version: '3.1'
+product:
+  en:
+    name: my quantum
+    productID: 53581432-6c55-4ba2-a65f-72344a91553a
+    valueProposition: Predict sales over time
+    description: Views built on top of the seller tables.
+    visibility: private
+    status: null
+    version: 1.1.0
+    tags:
+    - transactions
+    type: 1.1.0
+    metadata:
+      team:
+        owner: null
+  dataQuality:
+  - dimension: library
+    displaytitle:
+    - en: Library (tbl_1.*)
+    description:
+    - en: Ensure row count is within expected volume range
+    objective: null
+    unit: null
+  - dimension: library
+    displaytitle:
+    - en: Library (tbl_1.rcvr_cntry_code)
+    description:
+    - en: column should not contain null values
+    objective: null
+    unit: null
+  pricingPlans:
+    en:
+    - name: '9.95'
+      priceCurrency: USD
+      price: '9.95'
+      billingDuration: month
+      unit: /
+      maxTransactionQuantity: unlimited
+      offering: []
+  license:
+    en:
+      scope:
+        definition: Predict sales over time
+        restrictions: Data based on seller perspective, no buyer information
+        geographicalArea: []
+        permanent: null
+        exclusive: null
+        rights: []
+      termination:
+        terminationConditions: null
+        continuityConditions: null
+      governance:
+        ownership: null
+        damages: null
+        confidentiality: null
+        applicableLaws: null
+        warranties: null
+        audit: null
+        forceMajeure: null
+  SLA:
+  - dimension: availability
+    displaytitle:
+    - en: Availability
+    objective: null
+    unit: null
+  - dimension: retention
+    displaytitle:
+    - en: Retention
+    objective: null
+    unit: null
+  dataAccess:
+    authenticationMethod: null
+    documentationURL: null
+    format: null
+    specification: pp_access_views
+    type: postgres
+  dataHolder: {}
+  dataOps: {}
+  recommendedDataProducts: []
+  support: {}
